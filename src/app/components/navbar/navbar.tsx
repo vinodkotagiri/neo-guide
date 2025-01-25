@@ -4,7 +4,7 @@ function Navbar() {
   return (
     <div className="navbar bg-neutral text-neutral-content">
   <div className="flex-1">
-    <a className="btn btn-ghost text-xl">daisyUI</a>
+    <a className="btn btn-ghost text-xl">Neo Guide</a>
   </div>
   <div className="flex-none gap-2">
     <div className="dropdown dropdown-end">
