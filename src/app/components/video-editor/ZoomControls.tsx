@@ -9,6 +9,7 @@ function ZoomControls({zoom,setZoom}:ZoomControlsProps) {
   const handleZoomIn = () => setZoom((prevZoom) => Math.min(prevZoom + 0.1, 2)); // Max zoom: 2x
   const handleZoomOut = () => setZoom((prevZoom) => Math.max(prevZoom - 0.1, 0.5)); // Min zoom: 0.5x
   const resetZoom = () => setZoom(1);
+  console.log(zoom)
   return (
     <div className='h-full flex items-center justify-center gap-2'>
       <div className="tooltip" data-tip="zoom in">
