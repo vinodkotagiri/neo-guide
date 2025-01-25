@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const ClientOnly = ({ children }) => {
+const ClientOnly = ({ children }:{ children: React.ReactNode }) => {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
