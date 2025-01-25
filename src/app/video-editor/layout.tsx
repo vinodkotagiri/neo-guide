@@ -7,9 +7,9 @@ export default function VideoEditorLayout({
   children: React.ReactNode;
 }>) {
   return (
-   <div className='w-screen h-screen flex flex-col overflow-hidden'>
+   <div className='w-dvh h-dvh flex flex-col overflow-hidden'>
     <Navbar/>
-    <div className='flex-1 w-full'>
+    <div className='h-[calc(100vh-64px)] w-full'>
     {children}
     </div>
    </div>

@@ -11,17 +11,17 @@ function VideoEditorPage() {
   const [duration, setDuration] = useState(0); // Total duration of the video
   const [currentTime, setCurrentTime] = useState(0); // Current playback time
   return (
-    <div className='flex w-full h-full bg-slate-900 p-2 gap-1'>
+    <div className='flex size-full bg-slate-900 p-2 gap-1'>
       <div className='w-[85%] h-full flex flex-col gap-1'>
-        <div className='w-full h-[95%] border-[1px] rounded-md border-slate-700 bg-black'>
+        <div className='w-full h-[75%] border-[1px] rounded-md border-slate-700 bg-black'>
           <VideoPlayer playing={playing} setDuration={setDuration} setCurrentTime={setCurrentTime} playerRef={playerRef} zoom={zoom}/>
         </div>
-        <div className='w-full h-[15%] bg-black rounded-md border-[1px] border-slate-700 text-slate-200'>
+        <div className='w-full h-[25%] bg-black rounded-md border-[1px] border-slate-700 text-slate-200'>
         <VideoControls playing={playing} setPlaying={setPlaying} duration={duration} currentTime={currentTime} setZoom={setZoom} zoom={zoom}/>
         </div>
 
       </div>
-      <div className='w-[25%] h-[100%] bg-black rounded-md border-[1px] border-slate-700 text-slate-200'>
+      <div className='w-[25%] h-full bg-black rounded-md border-[1px] border-slate-700 text-slate-200'>
           <VideoSider />
       </div>
     </div>

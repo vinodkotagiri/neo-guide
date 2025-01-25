@@ -13,8 +13,13 @@ function Navbar() {
         <div className="w-10 rounded-full">
           <Image
             alt="Tailwind CSS Navbar component"
-            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+            width={50}
+            height={50}
+            
+          />
         </div>
+
       </div>
       <ul
         tabIndex={0}

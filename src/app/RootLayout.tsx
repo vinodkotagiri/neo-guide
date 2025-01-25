@@ -22,7 +22,7 @@ export default function RootLayout({
   const { isLoading } = useAppSelector((state) => state.loader);
 
   return (
-    <div>
+    <div className="size-dvh">
       <div className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {isLoading ? <Loader /> : null}
         {children}

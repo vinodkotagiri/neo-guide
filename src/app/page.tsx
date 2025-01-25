@@ -30,7 +30,7 @@ function App() {
     toast.success('Initiating screen recording...');
   }
   return (
-    <div className='min-w-screen min-h-screen bg-slate-900 text-slate-200 h-screen'>
+    <div className='min-w-screen min-h-screen bg-slate-900 text-slate-200 size-screen'>
       <div className='flex items-center justify-center h-full gap-3'>
         <button className='btn btn-lg' onClick={handleInitiateRecording}>Record Screen</button>
         <div className="divider divider-horizontal">OR</div>
