@@ -15,7 +15,7 @@ function App() {
     dispatch(setLoading(true));
     if (file) {
       const response: UploadVideoResponse | null = await uploadFile({ user_id: '1', file });
-      if (response &&response.upload_id) {
+      if (response ) {
         router.push(`/video-editor`);
         dispatch(setLoading(false));
       } else {
