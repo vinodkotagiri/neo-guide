@@ -27,10 +27,14 @@ function App() {
   }
 
   async function handleInitiateRecording() {
-    toast.success('Initiating screen recording...');
+    dispatch(setLoading(true));
+    setTimeout(() => {
+      router.push(`/recorder`);
+      dispatch(setLoading(false))
+    }, 1000);
   }
   return (
-    <div className='min-w-screen min-h-screen bg-slate-900 text-slate-200 size-screen'>
+    <div className='min-w-screen min-h-screen bg-slate-900 text-slate-200 h-screen w-screen'>
       <div className='flex items-center justify-center h-full gap-3'>
         <button className='btn btn-lg' onClick={handleInitiateRecording}>Record Screen</button>
         <div className="divider divider-horizontal">OR</div>
@@ -44,7 +48,6 @@ function App() {
           accept='video/*'
           onChange={handleUploadFile}
         />
-
       </div>
       <Toaster />
     </div>
