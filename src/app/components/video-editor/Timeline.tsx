@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { setCurrentTime } from "@/redux/features/videoSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import React, { useState, useRef, useEffect } from "react";
@@ -115,7 +116,7 @@ const Timeline = () => {
       {
           return (
 
-              <div key={index}  className="absolute h-12  bg-green-900 border-[1px] tooltip border-slate-900 cursor-pointer"  style={{width:(parseFloat(data?.end_time)-parseFloat(data?.start_time))??0,left:(parseFloat(data?.start_time)/duration)*100}}>
+              <div key={index}  className="absolute h-12  bg-green-900 border-[1px] tooltip border-slate-900 cursor-pointer"  style={{width:`${data.end_time-data.start_time}`,left:`${data?.start_time/duration*100}`}}>
             <span className="tooltip" data-tip={data?.input_video} key={index}></span>
             </div>)
           

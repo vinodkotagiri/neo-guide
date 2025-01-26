@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { setCurrentTime, setDuration, setTempData } from '@/redux/features/videoSlice';
 import { Stage, Layer, Rect } from 'react-konva';
-
+import Konva from 'konva';
 const ReactPlayer = dynamic(() => import('react-player'), { ssr: false });
 
 
@@ -20,8 +20,8 @@ interface OnProgressProps {
 
 const VideoPlayer: React.FC<VideoPlayerProps> = ({ playerRef }) => {
   const { isPlaying,zoom,zooming,url:src } = useAppSelector((state) => state.video);
-  const stageRef = useRef(null); // Ref for the stage
-  const playerContainerRef = useRef(null); // Ref for the container of the video player
+  const stageRef = useRef<Konva.Stage | null>(null);
+  const playerContainerRef = useRef<HTMLDivElement | null>(null); // Ref for the container of the video player
 
   const [isDrawing, setIsDrawing] = useState(false); // To track drawing state
   const [startX, setStartX] = useState(0); // Starting x position
@@ -57,11 +57,11 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ playerRef }) => {
     }
   }, []); // Initial calculation for player size
 
-  const handleMouseDown = (e: Konva.KonvaEventObject<MouseEvent>) => {
+  const handleMouseDown = () => {
     if(zooming){
       const stage = stageRef.current;
-      const mousePos = stage.getPointerPosition();
-      
+      const mousePos = stage?.getPointerPosition();
+      if(!mousePos) return
       setStartX(mousePos.x);
       setStartY(mousePos.y);
       setIsDrawing(true);
@@ -70,11 +70,12 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ playerRef }) => {
     }
   };
 
-  const handleMouseMove = (e: Konva.KonvaEventObject<MouseEvent>) => {
+  const handleMouseMove = () => {
     if (!isDrawing) return;
     const stage = stageRef.current;
-    const mousePos = stage.getPointerPosition();
+    const mousePos = stage?.getPointerPosition();
 
+    if (!mousePos) return;
     const width = mousePos.x - startX;
     const height = mousePos.y - startY;
 

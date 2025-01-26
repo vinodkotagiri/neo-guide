@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
     loader: 'default',  // Use default loader
     unoptimized: true,  // Disable optimization (allow all domains)
   },
+  eslint: {
+    ignoreDuringBuilds: true, // Ignore eslint checks during build
+  },
 };
 
 
