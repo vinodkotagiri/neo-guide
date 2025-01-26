@@ -19,26 +19,14 @@ const api = axios.create({
 
 export function initiateScreenRecord() {}
 export async function uploadFile(payload: UploadVideoPayload): Promise<UploadVideoResponse | null> {
- 
-   try{
-        // Step 1: Get the pre-signed URL from the server
-        const { data } = await axios.post("/api/upload", {
-          fileName: payload.file.name,
-          fileType: payload.file.type,
-        });
-        const { signedUrl, fileUrl } = data;
-        await axios.put(signedUrl, payload.file, {
-          headers: {
-            "Content-Type": payload.file.type,
-          },
-        });
-
-        console.log("File uploaded successfully:", fileUrl);
-        return {file_url:fileUrl};
-   }catch(error){
-    console.log("error uploading file:",error);
-return null
-   }
+ console.log(payload)
+ return {file_url:''}
+//    try{
+        
+//    }catch(error){
+//     console.log("error uploading file:",error);
+// return null
+//    }
 
 }
 
