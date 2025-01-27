@@ -1,9 +1,9 @@
 import axios from "axios";
-import { UploadVideoPayload } from "./payloads/payloads";
+import { ApplyZoomPayload, UploadVideoPayload } from "./payloads/payloads";
 import { UploadVideoResponse } from "./responses/responses";
 import AWS from "aws-sdk";
 
-const BASE_URL = "http://localhost:5000/api";
+const BASE_URL = "http://161.97.162.131:3000";
 const api = axios.create({
   baseURL: BASE_URL
 });
@@ -22,7 +22,7 @@ const api = axios.create({
 export function initiateScreenRecord() {}
 export async function uploadFile(payload: UploadVideoPayload): Promise<UploadVideoResponse | null> {
   try {
-    AWS.config.update ({
+    AWS.config.update({
       region: process.env.NEXT_PUBLIC_AWS_REGION as string,
       accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID as string,
       secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY as string
@@ -36,12 +36,36 @@ export async function uploadFile(payload: UploadVideoPayload): Promise<UploadVid
       ContentType: payload.file.type
     };
     const response = await s3.upload(params).promise();
-    if(!response.Location) return null
+    if (!response.Location) return null;
     return { file_url: response.Location };
   } catch (error) {
     console.log("error uploading file:", error);
     return null;
   }
 }
+export async function getProgress():Promise<{percentage:number,status:string,details:string}|null> {
+  return new Promise((resolve) => {
+    api
+      .get("/progress")
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((err) => {
+        console.log("err:", err);
+        return null;
+      });
+  });
+}
 
+export async function applyZoom(payload:ApplyZoomPayload){
+  return new Promise((resolve) => {
+    console.log('payload::',payload)
+    api.post("/apply-zoom", payload).then((res) => {
+      resolve(res.data?.message?.split(' ')[0]);
+    }).catch(error=>{
+      console.log('error applying zoom',error);
+      resolve(null)
+    })
+  } )
+}
 export default api;

@@ -19,7 +19,7 @@ function App() {
       if (response) {
         dispatch(setVideoUrl(response.file_url));
         router.push(`/video-editor`);
-        dispatch(setLoading(false));
+        dispatch(setLoading(false))
       } else {
         dispatch(setLoading(false));
         return toast.error('Error uploading video');

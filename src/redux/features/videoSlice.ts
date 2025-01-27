@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 // const url='https://converter-effy.s3.ap-southeast-1.amazonaws.com/dubvideo.mp4'
+const url_test='https://effybiz-devops.s3.ap-south-1.amazonaws.com/sample_video_2233.mp4'
 interface ZoomData {
   input_video: string;
   start_time: number;
@@ -21,7 +22,7 @@ interface videoState {
 }
 
 const initialState: videoState = {
-  url: '',
+  url: url_test,
   isPlaying: false,
   zoom: 1,
   zooming: false,

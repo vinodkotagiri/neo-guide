@@ -6,6 +6,14 @@ export interface InitiateRecordPayload{
   }
 }
 
+export interface ApplyZoomPayload{
+  input_video: string;
+  start_time: number;
+  end_time: number;
+  zoom_factor: number;
+  roi: [number, number, number, number];
+}
+
 export interface UploadVideoPayload{
   user_id:string;
   file:File;
