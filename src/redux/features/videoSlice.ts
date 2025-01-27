@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
+// const url='https://converter-effy.s3.ap-southeast-1.amazonaws.com/dubvideo.mp4'
 interface ZoomData {
   input_video: string;
   start_time: number;
@@ -21,7 +21,7 @@ interface videoState {
 }
 
 const initialState: videoState = {
-  url: 'https://converter-effy.s3.ap-southeast-1.amazonaws.com/dubvideo.mp4',
+  url: '',
   isPlaying: false,
   zoom: 1,
   zooming: false,
@@ -64,11 +64,15 @@ const videoSlice = createSlice({
     setTempData: (state, action: PayloadAction<Partial<ZoomData>>) => {
       // Merge the incoming tempData with the existing one
       state.tempData = { ...state.tempData, ...action.payload };
-    }
+    },
+    setVideoUrl: (state, action: PayloadAction<string>) => {
+      state.url = action.payload;
+    },
   }
 });
 
 export const {
+  setVideoUrl,
   setClips,
   setCurrentTime,
   setDuration,

@@ -88,15 +88,14 @@ const InteractiveScreenRecorder: React.FC = () => {
 
   return (
     <div>
-      <h1>Screen Recording with Annotations</h1>
 
       {/* Button to Start/Stop Recording */}
       <div>
-        <button onClick={() => (isRecording ? stopScreenRecording() : startScreenRecording())}>
+        <button className='btn btn-primary' onClick={() => (isRecording ? stopScreenRecording() : startScreenRecording())}>
           {isRecording ? 'Stop Recording' : 'Start Recording'}
         </button>
         {isRecording && (
-          <button onClick={togglePauseRecording}>
+          <button onClick={togglePauseRecording} className='btn btn-secondary'>
             {isPaused ? 'Resume Recording' : 'Pause Recording'}
           </button>
         )}

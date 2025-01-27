@@ -6,6 +6,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useAppDispatch } from '@/redux/hooks';
 import { setLoading } from '@/redux/features/LoadingSlice';
 import { useRouter } from 'next/navigation';
+import { setVideoUrl } from '@/redux/features/videoSlice';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -15,7 +16,8 @@ function App() {
     dispatch(setLoading(true));
     if (file) {
       const response: UploadVideoResponse | null = await uploadFile({ user_id: '1', file });
-      if (response ) {
+      if (response) {
+        dispatch(setVideoUrl(response.file_url));
         router.push(`/video-editor`);
         dispatch(setLoading(false));
       } else {

@@ -1,6 +1,8 @@
 import axios from "axios";
 import { UploadVideoPayload } from "./payloads/payloads";
 import { UploadVideoResponse } from "./responses/responses";
+import AWS from "aws-sdk";
+
 const BASE_URL = "http://localhost:5000/api";
 const api = axios.create({
   baseURL: BASE_URL
@@ -19,15 +21,27 @@ const api = axios.create({
 
 export function initiateScreenRecord() {}
 export async function uploadFile(payload: UploadVideoPayload): Promise<UploadVideoResponse | null> {
- console.log(payload)
- return {file_url:''}
-//    try{
-        
-//    }catch(error){
-//     console.log("error uploading file:",error);
-// return null
-//    }
-
+  try {
+    AWS.config.update ({
+      region: process.env.NEXT_PUBLIC_AWS_REGION as string,
+      accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID as string,
+      secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY as string
+    });
+    const s3 = new AWS.S3();
+    console.log("payload:::", payload);
+    const params = {
+      Bucket: process.env.NEXT_PUBLIC_AWS_S3_BUCKET as string,
+      Key: payload.file.name,
+      Body: payload.file,
+      ContentType: payload.file.type
+    };
+    const response = await s3.upload(params).promise();
+    if(!response.Location) return null
+    return { file_url: response.Location };
+  } catch (error) {
+    console.log("error uploading file:", error);
+    return null;
+  }
 }
 
 export default api;
