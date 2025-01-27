@@ -3,7 +3,7 @@ import InteractiveScreenRecorder from '../components/InteractiveAnnotationRecord
 
 function RecorderPage() {
   return (
-    <div>
+    <div className='w-screen h-screen bg-slate-900'>
       <InteractiveScreenRecorder/>
     </div>
   )

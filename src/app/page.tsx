@@ -35,6 +35,7 @@ function App() {
       dispatch(setLoading(false))
     }, 1000);
   }
+  
   return (
     <div className='min-w-screen min-h-screen bg-slate-900 text-slate-200 h-screen w-screen'>
       <div className='flex items-center justify-center h-full gap-3'>

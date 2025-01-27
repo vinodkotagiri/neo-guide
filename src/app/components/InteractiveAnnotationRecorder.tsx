@@ -1,5 +1,7 @@
 'use client'
+import { useRouter } from 'next/navigation';
 import React, { useState, useRef, useEffect } from 'react';
+import toast from 'react-hot-toast';
 
 const InteractiveScreenRecorder: React.FC = () => {
   const [isRecording, setIsRecording] = useState(false);
@@ -10,7 +12,8 @@ const InteractiveScreenRecorder: React.FC = () => {
   const [isPaused, setIsPaused] = useState(false);
   const annotationOverlayRef = useRef<HTMLDivElement | null>(null);
   const [isAnnotating, setIsAnnotating] = useState(false); // Control annotation mode
-
+  const [recordingComplete, setRecordingComplete]=useState(false);
+  const router=useRouter();
   useEffect(() => {
     return () => {
       // Clean up the stream and media recorder when component unmounts
@@ -49,6 +52,7 @@ const InteractiveScreenRecorder: React.FC = () => {
       mediaRecorder.stop();
     }
     setIsRecording(false);
+    setRecordingComplete(true);
   };
 
   const togglePauseRecording = () => {
@@ -80,6 +84,9 @@ const InteractiveScreenRecorder: React.FC = () => {
       a.download = 'screen_recording.mp4';
       a.click();
     }
+    toast.success('Recording saved successfully!');
+    router.push(`/`);
+
   };
 
   const toggleAnnotationMode = () => {
@@ -87,23 +94,23 @@ const InteractiveScreenRecorder: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className='w-full h-full bg-transparent px-3 py-2 flex items-center justify-center flex-col gap-4'>
 
       {/* Button to Start/Stop Recording */}
-      <div>
-        <button className='btn btn-primary' onClick={() => (isRecording ? stopScreenRecording() : startScreenRecording())}>
+      <div className='flex gap-4'>
+        <button className='btn btn-error text-error-content btn-sm' onClick={() => (isRecording ? stopScreenRecording() : startScreenRecording())}>
           {isRecording ? 'Stop Recording' : 'Start Recording'}
         </button>
         {isRecording && (
-          <button onClick={togglePauseRecording} className='btn btn-secondary'>
+          <button onClick={togglePauseRecording} className='btn btn-secondary btn-sm'>
             {isPaused ? 'Resume Recording' : 'Pause Recording'}
           </button>
         )}
-        {recordedVideoUrl && <button onClick={handleSaveRecording}>Save Recording</button>}
+        {recordedVideoUrl && <button onClick={handleSaveRecording} className='btn btn-success btn-sm'>Save Recording</button>}
       </div>
 
       {/* Annotation Mode Button (Fixed Position) */}
-      <button
+     {recordingComplete? <button
         style={{
           position: 'fixed',
           top: '10px',
@@ -118,10 +125,10 @@ const InteractiveScreenRecorder: React.FC = () => {
         onClick={toggleAnnotationMode}
       >
         {isAnnotating ? 'Stop Annotating' : 'Start Annotating'}
-      </button>
+      </button>:''}
 
       {/* Screen Recording Video */}
-      <div style={{ position: 'relative' }}>
+      <div style={{ position: 'relative' }} className='w-[60%] h-full border-slate-700'>
         <video
           controls
           width="100%"
